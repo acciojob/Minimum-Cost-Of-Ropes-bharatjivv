@@ -1,36 +1,40 @@
 function calculateMinCost() {
   //your code here
-  const input = document.querySelector("input[type='text']").value;
+ var input = document.querySelector('input[type="text"]').value;
 
-  // Convert input to array of numbers
-  let ropes = input
-    .split(",")
-    .map(num => parseInt(num.trim()))
-    .filter(num => !isNaN(num));
+  // Convert input string to array of numbers
+  var ropes = input.split(',');
+  var arr = [];
 
-  if (ropes.length <= 1) {
-    document.getElementById("result").innerText = 0;
+  for (var i = 0; i < ropes.length; i++) {
+    var num = parseInt(ropes[i].trim());
+    if (!isNaN(num)) {
+      arr.push(num);
+    }
+  }
+
+  if (arr.length <= 1) {
+    document.getElementById('result').innerHTML = '0';
     return;
   }
 
-  // Min-heap simulation using sorting
-  let totalCost = 0;
+  var totalCost = 0;
 
-  while (ropes.length > 1) {
-    // Always sort to get two smallest ropes
-    ropes.sort((a, b) => a - b);
+  while (arr.length > 1) {
+    // Sort to get two smallest elements
+    arr.sort(function (a, b) {
+      return a - b;
+    });
 
-    const first = ropes.shift();
-    const second = ropes.shift();
+    var first = arr.shift();
+    var second = arr.shift();
 
-    const cost = first + second;
+    var cost = first + second;
     totalCost += cost;
 
-    // Push the combined rope back
-    ropes.push(cost);
+    arr.push(cost);
   }
 
-  document.getElementById("result").innerText = totalCost;
-  
+  document.getElementById('result').innerHTML = totalCost;
   
 }  
